@@ -2,6 +2,7 @@ package com.dkd.manage.mapper;
 
 import java.util.List;
 import com.dkd.manage.domain.Partner;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 合作商管理Mapper接口
@@ -9,6 +10,7 @@ import com.dkd.manage.domain.Partner;
  * @author ruoyi
  * @date 2025-12-03
  */
+@Mapper
 public interface PartnerMapper 
 {
     /**
