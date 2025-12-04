@@ -20,6 +20,7 @@ import com.dkd.manage.domain.Partner;
 import com.dkd.manage.service.IPartnerService;
 import com.dkd.common.utils.poi.ExcelUtil;
 import com.dkd.common.core.page.TableDataInfo;
+import com.dkd.common.utils.SecurityUtils;
 
 /**
  * 合作商管理Controller
@@ -100,5 +101,23 @@ public class PartnerController extends BaseController
     public AjaxResult remove(@PathVariable Long[] ids)
     {
         return toAjax(partnerService.deletePartnerByIds(ids));
+    }
+
+    /**
+     * 重置合作商密码
+     */
+    @PreAuthorize("@ss.hasPermi('manage:partner:edit')")
+    @Log(title = "重置合作商密码", businessType = BusinessType.UPDATE)
+    @PutMapping("/resetPwd/{id}")
+    public AjaxResult resetPwd(@PathVariable("id") Long id)
+    {
+        // 创建合作伙伴对象
+        Partner partner = new Partner();
+        partner.setId(id);
+        // 设置默认密码并加密
+        String encryptPassword = SecurityUtils.encryptPassword("123456");
+        partner.setPassword(encryptPassword);
+        // 更新密码
+        return toAjax(partnerService.updatePartner(partner));
     }
 }
