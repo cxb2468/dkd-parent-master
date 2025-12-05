@@ -3,6 +3,7 @@ package com.dkd.framework.web.exception;
 import javax.servlet.http.HttpServletRequest;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.validation.BindException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
@@ -134,5 +135,22 @@ public class GlobalExceptionHandler
     public AjaxResult handleDemoModeException(DemoModeException e)
     {
         return AjaxResult.error("演示模式，不允许操作");
+    }
+
+    /**
+     * 数据完整性 violation 异常处理
+     */
+    @ExceptionHandler(DataIntegrityViolationException.class)
+    public AjaxResult handleDataIntegrityViolationException(DataIntegrityViolationException e, HttpServletRequest request)
+    {
+        String requestURI = request.getRequestURI();
+        log.error("请求地址'{}',发生数据完整性异常.", requestURI, e);
+        
+        // 检查是否是外键约束违规
+        if (e.getMessage().contains("foreign key constraint fails")) {
+            return AjaxResult.error("操作失败，该数据已被其他数据引用，无法删除");
+        }
+        
+        return AjaxResult.error("数据操作违反完整性约束");
     }
 }
