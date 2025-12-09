@@ -2,6 +2,7 @@ package com.dkd.manage.mapper;
 
 import java.util.List;
 import com.dkd.manage.domain.VendingMachine;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 设备管理Mapper接口
@@ -9,6 +10,7 @@ import com.dkd.manage.domain.VendingMachine;
  * @author ruoyi
  * @date 2025-12-08
  */
+@Mapper
 public interface VendingMachineMapper 
 {
     /**

@@ -2,6 +2,7 @@ package com.dkd.manage.mapper;
 
 import java.util.List;
 import com.dkd.manage.domain.VmType;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 设备类型管理Mapper接口
@@ -9,6 +10,7 @@ import com.dkd.manage.domain.VmType;
  * @author ruoyi
  * @date 2025-12-08
  */
+@Mapper
 public interface VmTypeMapper 
 {
     /**
