@@ -58,4 +58,7 @@ public interface IChannelService
      * @return 结果
      */
     public int deleteChannelById(Long id);
+
+
+     public int countChannelBySkuIds(Long[] ids);
 }
