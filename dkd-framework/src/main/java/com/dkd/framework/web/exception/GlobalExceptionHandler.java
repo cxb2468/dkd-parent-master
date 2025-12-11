@@ -151,6 +151,11 @@ public class GlobalExceptionHandler
             return AjaxResult.error("操作失败，该数据已被其他数据引用，无法删除");
         }
         
+        // 检查是否是唯一性约束违规
+        if (e.getMessage().contains("Duplicate entry")) {
+            return AjaxResult.error("Duplicate重复 ，已存在，不能重复新增");
+        }
+        
         return AjaxResult.error("数据操作违反完整性约束");
     }
 }
