@@ -2,6 +2,7 @@ package com.dkd.manage.mapper;
 
 import java.util.List;
 import com.dkd.manage.domain.Sku;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 商品管理Mapper接口
@@ -9,6 +10,7 @@ import com.dkd.manage.domain.Sku;
  * @author ruoyi
  * @date 2025-12-11
  */
+@Mapper
 public interface SkuMapper 
 {
     /**
@@ -58,4 +60,6 @@ public interface SkuMapper
      * @return 结果
      */
     public int deleteSkuBySkuIds(Long[] skuIds);
+
+    public int insertSkus(List<Sku> skuList);
 }
