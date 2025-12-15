@@ -21,7 +21,6 @@ import com.dkd.manage.service.ISkuService;
 import com.dkd.common.utils.poi.ExcelUtil;
 import com.dkd.common.core.page.TableDataInfo;
 import org.springframework.web.multipart.MultipartFile;
-
 /**
  * 商品管理Controller
  * 
@@ -47,18 +46,6 @@ public class SkuController extends BaseController
         return getDataTable(list);
     }
 
-    /**
-     * 导出商品管理列表
-     */
-    @PreAuthorize("@ss.hasPermi('manage:sku:export')")
-    @Log(title = "商品管理", businessType = BusinessType.EXPORT)
-    @PostMapping("/export")
-    public void export(HttpServletResponse response, Sku sku)
-    {
-        List<Sku> list = skuService.selectSkuList(sku);
-        ExcelUtil<Sku> util = new ExcelUtil<Sku>(Sku.class);
-        util.exportExcel(response, list, "商品管理数据");
-    }
 
     /**
      * 获取商品管理详细信息
@@ -111,10 +98,22 @@ public class SkuController extends BaseController
         //新建util类中的 ExcelUtil
         ExcelUtil<Sku> util = new ExcelUtil<Sku>(Sku.class);
         //将file的输入流 赋值到 skuList
-        List<Sku> skuList = util.importExcel(file.getInputStream());
+        List<Sku> skuList = util.importEasyExcel(file.getInputStream());
         //将skuList 用skuService.insertSkus批量插入 并返回
         return toAjax(skuService.insertSkus(skuList));
-
-
     }
+
+    /**
+     * 导出商品管理列表
+     */
+    @PreAuthorize("@ss.hasPermi('manage:sku:export')")
+    @Log(title = "商品管理", businessType = BusinessType.EXPORT)
+    @PostMapping("/export")
+    public void export(HttpServletResponse response, Sku sku)
+    {
+        List<Sku> list = skuService.selectSkuList(sku);
+        ExcelUtil<Sku> util = new ExcelUtil<Sku>(Sku.class);
+        util.exportEasyExcel(response, list, "商品管理数据");
+    }
+
 }

@@ -1,5 +1,10 @@
 package com.dkd.manage.domain;
 
+import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
+import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.write.style.ColumnWidth;
+import com.alibaba.excel.annotation.write.style.HeadFontStyle;
+import com.alibaba.excel.annotation.write.style.HeadRowHeight;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 import org.apache.commons.lang3.builder.ToStringStyle;
 import com.dkd.common.annotation.Excel;
@@ -11,6 +16,11 @@ import com.dkd.common.core.domain.BaseEntity;
  * @author ruoyi
  * @date 2025-12-11
  */
+@ExcelIgnoreUnannotated
+@ColumnWidth(16)
+@HeadRowHeight(20)
+@HeadFontStyle(fontHeightInPoints = 11)
+
 public class Sku extends BaseEntity
 {
     private static final long serialVersionUID = 1L;
@@ -20,26 +30,33 @@ public class Sku extends BaseEntity
 
     /** 商品名称 */
     @Excel(name = "商品名称")
+    @ExcelProperty(index = 0,value = "商品名称")
     private String skuName;
 
     /** 商品图片 */
     @Excel(name = "商品图片")
+    @ExcelProperty(index = 1,value = "商品图片")
     private String skuImage;
 
     /** 品牌 */
     @Excel(name = "品牌")
+    @ExcelProperty(index = 2,value = "品牌")
     private String brandName;
 
     /** 规格 */
     @Excel(name = "规格")
+    @ExcelProperty(index = 3,value = "规格")
     private String unit;
 
     /** 商品价格，单位分 */
+
     @Excel(name = "商品价格，单位分")
+    @ExcelProperty( index = 4,value = "商品价格，单位分")
     private Long price;
 
     /** 商品类型Id */
     @Excel(name = "商品类型Id")
+    @ExcelProperty(index = 5,value = "商品类型Id")
     private Long classId;
 
     /** 是否打折促销 */
