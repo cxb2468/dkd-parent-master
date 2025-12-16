@@ -2,6 +2,8 @@ package com.dkd.manage.mapper;
 
 import java.util.List;
 import com.dkd.manage.domain.Task;
+import com.dkd.manage.domain.vo.TaskVo;
+import org.apache.ibatis.annotations.Mapper;
 
 /**
  * 工单管理Mapper接口
@@ -9,6 +11,7 @@ import com.dkd.manage.domain.Task;
  * @author ruoyi
  * @date 2025-12-16
  */
+@Mapper
 public interface TaskMapper 
 {
     /**
@@ -58,4 +61,8 @@ public interface TaskMapper
      * @return 结果
      */
     public int deleteTaskByTaskIds(Long[] taskIds);
+
+
+    /*查询运维工单列表*/
+    List<TaskVo> selectTaskVoList(Task task);
 }
