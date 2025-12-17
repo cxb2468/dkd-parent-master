@@ -2,6 +2,7 @@ package com.dkd.manage.mapper;
 
 import java.util.List;
 import com.dkd.manage.domain.Task;
+import com.dkd.manage.domain.TaskDetails;
 import com.dkd.manage.domain.vo.TaskVo;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -65,4 +66,6 @@ public interface TaskMapper
 
     /*查询运维工单列表*/
     List<TaskVo> selectTaskVoList(Task task);
+
+
 }

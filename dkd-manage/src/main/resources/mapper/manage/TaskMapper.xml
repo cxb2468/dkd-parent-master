@@ -144,6 +144,8 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         where task_id = #{taskId}
     </update>
 
+
+
     <delete id="deleteTaskByTaskId" parameterType="Long">
         delete from tb_task where task_id = #{taskId}
     </delete>

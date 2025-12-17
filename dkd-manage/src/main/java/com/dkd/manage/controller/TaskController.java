@@ -3,6 +3,7 @@ package com.dkd.manage.controller;
 import java.util.List;
 import javax.servlet.http.HttpServletResponse;
 
+import com.dkd.manage.domain.dto.TaskDto;
 import com.dkd.manage.domain.vo.TaskVo;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,9 +78,11 @@ public class TaskController extends BaseController
     @PreAuthorize("@ss.hasPermi('manage:task:add')")
     @Log(title = "工单管理", businessType = BusinessType.INSERT)
     @PostMapping
-    public AjaxResult add(@RequestBody Task task)
-    {
-        return toAjax(taskService.insertTask(task));
+    public AjaxResult add(@RequestBody TaskDto taskDto)
+    {   //设置指派人id
+        taskDto.setAssignorId(getUserId());
+
+        return toAjax(taskService.insertTaskDto(taskDto));
     }
 
     /**
@@ -102,5 +105,13 @@ public class TaskController extends BaseController
     public AjaxResult remove(@PathVariable Long[] taskIds)
     {
         return toAjax(taskService.deleteTaskByTaskIds(taskIds));
+    }
+
+    /*取消工单功能*/
+    @PreAuthorize("@ss.hasPermi('manage:task:cancel')")
+    @Log(title = "工单管理", businessType = BusinessType.UPDATE)
+    @PutMapping("/cancel")
+    public AjaxResult cancel(@RequestBody Task task){
+        return toAjax(taskService.cancelTask(task));
     }
 }
